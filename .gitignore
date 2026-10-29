@@ -1,0 +1,36 @@
+# .gitignore - E-Voting OSIS SMK Muthia Harapan Cicalengka
+
+# Environment variables & secrets
+.env
+.env.local
+.env.production
+
+# Log files (keep directory via .gitkeep)
+storage/logs/*.log
+!storage/logs/.gitkeep
+*.log
+
+# Scratch & Temporary Testing profiles/artifacts
+scratch/
+scratch_*.php
+tests/edge_temp_profile*/
+tests/*.png
+tests/cookie*.txt
+tests/page_runner.php
+
+# OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# IDE & Editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Local temp & cache files
+*.tmp
+*.temp
+*.bak
