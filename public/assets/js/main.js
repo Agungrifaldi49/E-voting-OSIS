@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initVoteConfirmation();
     initCandidateModal();
     initRealtimeResults();
+    initSweetAlertBridges();
 });
 
 /**
@@ -436,3 +437,288 @@ function updateChartJs(candidates) {
         resultsChartInstance.update('none'); // Update smoothly without jarring animation
     }
 }
+
+/**
+ * 5. SweetAlert2 Global Helpers & Confirmation Bridges
+ */
+window.showToast = function (icon, message, duration = 3500) {
+    if (typeof Swal === 'undefined') {
+        alert(message);
+        return Promise.resolve();
+    }
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: duration,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+        }
+    });
+    return Toast.fire({
+        icon: icon || 'info',
+        title: message
+    });
+};
+
+window.showSuccessAlert = function (message, title = 'Berhasil!') {
+    if (typeof Swal === 'undefined') {
+        alert(message);
+        return Promise.resolve();
+    }
+    return Swal.fire({
+        icon: 'success',
+        title: title,
+        html: `<div class="swal-message-content">${message}</div>`,
+        confirmButtonColor: '#2563eb',
+        confirmButtonText: '<i class="bi bi-check2-circle me-1"></i> Oke, Siap',
+        timer: 4500,
+        timerProgressBar: true,
+        showCloseButton: true,
+        customClass: {
+            popup: 'swal2-app-popup shadow-xl',
+            title: 'swal2-app-title',
+            htmlContainer: 'swal2-app-html',
+            confirmButton: 'btn btn-primary-custom px-4 py-2 rounded-3 fw-bold'
+        }
+    });
+};
+
+window.showErrorAlert = function (message, title = 'Terjadi Kesalahan!') {
+    if (typeof Swal === 'undefined') {
+        alert(message);
+        return Promise.resolve();
+    }
+    return Swal.fire({
+        icon: 'error',
+        title: title,
+        html: `<div class="swal-message-content">${message}</div>`,
+        confirmButtonColor: '#ef4444',
+        confirmButtonText: '<i class="bi bi-x-circle me-1"></i> Tutup &amp; Periksa',
+        showCloseButton: true,
+        customClass: {
+            popup: 'swal2-app-popup shadow-xl',
+            title: 'swal2-app-title',
+            htmlContainer: 'swal2-app-html',
+            confirmButton: 'btn btn-danger px-4 py-2 rounded-3 fw-bold'
+        }
+    });
+};
+
+window.showWarningAlert = function (message, title = 'Perhatian!') {
+    if (typeof Swal === 'undefined') {
+        alert(message);
+        return Promise.resolve();
+    }
+    return Swal.fire({
+        icon: 'warning',
+        title: title,
+        html: `<div class="swal-message-content">${message}</div>`,
+        confirmButtonColor: '#f59e0b',
+        confirmButtonText: '<i class="bi bi-exclamation-circle me-1"></i> Saya Mengerti',
+        showCloseButton: true,
+        customClass: {
+            popup: 'swal2-app-popup shadow-xl',
+            title: 'swal2-app-title',
+            htmlContainer: 'swal2-app-html',
+            confirmButton: 'btn btn-warning text-dark px-4 py-2 rounded-3 fw-bold'
+        }
+    });
+};
+
+window.showInfoAlert = function (message, title = 'Informasi Sistem') {
+    if (typeof Swal === 'undefined') {
+        alert(message);
+        return Promise.resolve();
+    }
+    return Swal.fire({
+        icon: 'info',
+        title: title,
+        html: `<div class="swal-message-content">${message}</div>`,
+        confirmButtonColor: '#0284c7',
+        confirmButtonText: '<i class="bi bi-info-circle me-1"></i> Baiklah',
+        timer: 5000,
+        timerProgressBar: true,
+        showCloseButton: true,
+        customClass: {
+            popup: 'swal2-app-popup shadow-xl',
+            title: 'swal2-app-title',
+            htmlContainer: 'swal2-app-html',
+            confirmButton: 'btn btn-info text-white px-4 py-2 rounded-3 fw-bold'
+        }
+    });
+};
+
+window.showConfirmDialog = function (options) {
+    if (typeof Swal === 'undefined') {
+        const confirmed = confirm(options.text || options.title || 'Konfirmasi tindakan?');
+        if (confirmed && typeof options.onConfirm === 'function') options.onConfirm();
+        return Promise.resolve({ isConfirmed: confirmed });
+    }
+
+    const isDanger = options.isDanger || false;
+    return Swal.fire({
+        title: options.title || 'Konfirmasi Tindakan',
+        html: `<div class="text-dark small">${options.text || options.html || 'Apakah Anda yakin ingin melanjutkan tindakan ini?'}</div>`,
+        icon: options.icon || (isDanger ? 'warning' : 'question'),
+        showCancelButton: true,
+        confirmButtonColor: isDanger ? '#ef4444' : '#2563eb',
+        cancelButtonColor: '#64748b',
+        confirmButtonText: options.confirmText || (isDanger ? '<i class="bi bi-trash-fill me-1"></i> Ya, Lanjutkan' : '<i class="bi bi-check-lg me-1"></i> Ya, Lanjutkan'),
+        cancelButtonText: options.cancelText || '<i class="bi bi-x-lg me-1"></i> Batal',
+        reverseButtons: true,
+        focusCancel: isDanger,
+        showCloseButton: true,
+        customClass: {
+            popup: 'swal2-app-popup shadow-xl',
+            title: 'swal2-app-title',
+            confirmButton: `btn ${isDanger ? 'btn-danger' : 'btn-primary-custom'} px-4 py-2 rounded-3 me-2 fw-semibold`,
+            cancelButton: 'btn btn-outline-secondary px-4 py-2 rounded-3 fw-semibold'
+        },
+        buttonsStyling: false
+    }).then((result) => {
+        if (result.isConfirmed && typeof options.onConfirm === 'function') {
+            options.onConfirm();
+        }
+        return result;
+    });
+};
+
+function initSweetAlertBridges() {
+    if (typeof Swal === 'undefined') return;
+
+    // 1. Intercept any forms with onsubmit containing confirm(...)
+    document.querySelectorAll('form[onsubmit*="confirm("]').forEach(form => {
+        const onsubmitAttr = form.getAttribute('onsubmit');
+        const match = onsubmitAttr.match(/confirm\(['"](.*?)['"]\)/);
+        if (match) {
+            const rawMsg = match[1];
+            form.removeAttribute('onsubmit');
+            form.setAttribute('data-swal-bound', 'true');
+            const isDanger = /hapus|delete|reset|bersihkan|peringatan|nonaktifkan/i.test(rawMsg);
+
+            form.addEventListener('submit', function (e) {
+                if (form.getAttribute('data-confirmed') === 'true') {
+                    return true;
+                }
+                e.preventDefault();
+
+                Swal.fire({
+                    title: isDanger ? 'Konfirmasi Tindakan Penting' : 'Konfirmasi Tindakan',
+                    html: `<div class="text-dark small">${rawMsg}</div>`,
+                    icon: isDanger ? 'warning' : 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: isDanger ? '#ef4444' : '#2563eb',
+                    cancelButtonColor: '#64748b',
+                    confirmButtonText: isDanger ? '<i class="bi bi-exclamation-triangle-fill me-1"></i> Ya, Lanjutkan' : '<i class="bi bi-check-lg me-1"></i> Ya, Lanjutkan',
+                    cancelButtonText: '<i class="bi bi-x-lg me-1"></i> Batal',
+                    reverseButtons: true,
+                    focusCancel: isDanger,
+                    showCloseButton: true,
+                    customClass: {
+                        popup: 'swal2-app-popup shadow-xl',
+                        title: 'swal2-app-title',
+                        confirmButton: `btn ${isDanger ? 'btn-danger' : 'btn-primary-custom'} px-4 py-2 rounded-3 me-2 fw-semibold`,
+                        cancelButton: 'btn btn-outline-secondary px-4 py-2 rounded-3 fw-semibold'
+                    },
+                    buttonsStyling: false
+                }).then((res) => {
+                    if (res.isConfirmed) {
+                        form.setAttribute('data-confirmed', 'true');
+                        form.submit();
+                    }
+                });
+            });
+        }
+    });
+
+    // 2. Intercept any links or buttons with onclick containing confirm(...)
+    document.querySelectorAll('a[onclick*="confirm("], button[onclick*="confirm("]').forEach(el => {
+        const onclickAttr = el.getAttribute('onclick');
+        const match = onclickAttr.match(/confirm\(['"](.*?)['"]\)/);
+        if (match) {
+            const rawMsg = match[1];
+            el.removeAttribute('onclick');
+            el.setAttribute('data-swal-bound', 'true');
+            const isDanger = /keluar|hapus|delete|reset/i.test(rawMsg);
+
+            el.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetHref = el.getAttribute('href');
+
+                Swal.fire({
+                    title: 'Konfirmasi',
+                    html: `<div class="text-dark small">${rawMsg}</div>`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: isDanger ? '#f59e0b' : '#2563eb',
+                    cancelButtonColor: '#64748b',
+                    confirmButtonText: '<i class="bi bi-check-lg me-1"></i> Ya, Lanjutkan',
+                    cancelButtonText: '<i class="bi bi-x-lg me-1"></i> Tetap di Sini',
+                    reverseButtons: true,
+                    showCloseButton: true,
+                    customClass: {
+                        popup: 'swal2-app-popup shadow-xl',
+                        title: 'swal2-app-title',
+                        confirmButton: 'btn btn-primary-custom px-4 py-2 rounded-3 me-2 fw-semibold',
+                        cancelButton: 'btn btn-outline-secondary px-4 py-2 rounded-3 fw-semibold'
+                    },
+                    buttonsStyling: false
+                }).then((res) => {
+                    if (res.isConfirmed && targetHref && targetHref !== '#') {
+                        window.location.href = targetHref;
+                    }
+                });
+            });
+        }
+    });
+
+    // 3. Elements with explicit data-confirm attribute
+    document.querySelectorAll('[data-confirm]:not([data-swal-bound])').forEach(el => {
+        el.setAttribute('data-swal-bound', 'true');
+        el.addEventListener('click', function (e) {
+            if (el.getAttribute('data-confirmed') === 'true') return;
+            e.preventDefault();
+            const msg = el.getAttribute('data-confirm');
+            const title = el.getAttribute('data-confirm-title') || 'Konfirmasi Tindakan';
+            const isDanger = el.getAttribute('data-confirm-danger') === 'true' || el.classList.contains('btn-danger') || /hapus|delete/i.test(msg);
+
+            Swal.fire({
+                title: title,
+                html: `<div class="text-dark small">${msg}</div>`,
+                icon: isDanger ? 'warning' : 'question',
+                showCancelButton: true,
+                confirmButtonColor: isDanger ? '#ef4444' : '#2563eb',
+                cancelButtonColor: '#64748b',
+                confirmButtonText: isDanger ? '<i class="bi bi-trash-fill me-1"></i> Ya, Hapus' : '<i class="bi bi-check-lg me-1"></i> Ya, Lanjutkan',
+                cancelButtonText: '<i class="bi bi-x-lg me-1"></i> Batal',
+                reverseButtons: true,
+                focusCancel: isDanger,
+                showCloseButton: true,
+                customClass: {
+                    popup: 'swal2-app-popup shadow-xl',
+                    title: 'swal2-app-title',
+                    confirmButton: `btn ${isDanger ? 'btn-danger' : 'btn-primary-custom'} px-4 py-2 rounded-3 me-2 fw-semibold`,
+                    cancelButton: 'btn btn-outline-secondary px-4 py-2 rounded-3 fw-semibold'
+                },
+                buttonsStyling: false
+            }).then((res) => {
+                if (res.isConfirmed) {
+                    if (el.tagName === 'A' && el.href) {
+                        window.location.href = el.href;
+                    } else if (el.form) {
+                        el.form.setAttribute('data-confirmed', 'true');
+                        el.form.submit();
+                    } else if (el.closest('form')) {
+                        const parent = el.closest('form');
+                        parent.setAttribute('data-confirmed', 'true');
+                        parent.submit();
+                    }
+                }
+            });
+        });
+    });
+}
+

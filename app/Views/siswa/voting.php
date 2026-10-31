@@ -131,8 +131,8 @@ $dashboardUrl = base_url(($currentUser['role'] ?? 'siswa') . '/dashboard.php');
 <div class="modal fade" id="voteConfirmationModal" tabindex="-1" aria-labelledby="modalConfirmTitle" aria-hidden="true" data-bs-backdrop="static">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0 shadow-xl rounded-4">
-            <div class="modal-header bg-dark text-white border-0 py-3">
-                <h5 class="modal-title fw-bold" id="modalConfirmTitle">
+            <div class="modal-header modal-header-premium p-3 px-4">
+                <h5 class="modal-title fw-bold text-white mb-0" id="modalConfirmTitle">
                     <i class="bi bi-question-circle text-warning me-2"></i> Konfirmasi Pilihan Anda
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -177,8 +177,8 @@ $dashboardUrl = base_url(($currentUser['role'] ?? 'siswa') . '/dashboard.php');
 <div class="modal fade" id="candidateDetailModal" tabindex="-1" aria-labelledby="modalDetailTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content border-0 shadow-lg">
-            <div class="modal-header bg-dark text-white">
-                <h5 class="modal-title fw-bold" id="modalDetailTitle"><span id="modal-cand-title">Detail Calon</span></h5>
+            <div class="modal-header modal-header-premium p-3 px-4">
+                <h5 class="modal-title fw-bold text-white mb-0" id="modalDetailTitle"><span id="modal-cand-title">Detail Calon</span></h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4">

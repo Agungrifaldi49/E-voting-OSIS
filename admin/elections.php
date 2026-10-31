@@ -140,8 +140,8 @@ require_once BASE_PATH . '/app/Views/layouts/header.php';
 <div class="modal fade" id="electionModal" tabindex="-1" aria-labelledby="modalElectionTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content border-0 shadow-lg rounded-4">
-            <div class="modal-header bg-dark text-white">
-                <h5 class="modal-title fw-bold" id="modalElectionTitle">Buat Periode Pemilihan Baru</h5>
+            <div class="modal-header modal-header-premium p-3 px-4">
+                <h5 class="modal-title fw-bold text-white mb-0" id="modalElectionTitle">Buat Periode Pemilihan Baru</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="<?= base_url('admin/elections.php') ?>" method="POST" id="form-election">

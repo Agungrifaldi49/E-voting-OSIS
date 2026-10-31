@@ -14,10 +14,14 @@ Options -Indexes
     Deny from all
 </FilesMatch>
 
-# 3. Security Headers
+# 3. Security & Static Asset Caching Headers
 <IfModule mod_headers.c>
     Header set X-Content-Type-Options "nosniff"
     Header set X-Frame-Options "SAMEORIGIN"
     Header set X-XSS-Protection "1; mode=block"
     Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+    <FilesMatch "\.(ico|png|jpg|jpeg|webp|svg)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
 </IfModule>

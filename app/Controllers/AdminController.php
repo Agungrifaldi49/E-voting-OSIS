@@ -41,13 +41,13 @@ class AdminController {
             $results = Vote::getResults($activeElection['id']);
         }
 
-        // 3. Recent activity logs
+        // 3. Recent activity logs (Max 5 recent activities on dashboard)
         $logsStmt = $pdo->query("
             SELECT al.*, u.username, u.role
             FROM activity_logs al
             LEFT JOIN users u ON al.user_id = u.id
             ORDER BY al.id DESC
-            LIMIT 8
+            LIMIT 5
         ");
         $recentLogs = $logsStmt->fetchAll();
 

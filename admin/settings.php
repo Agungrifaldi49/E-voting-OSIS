@@ -932,7 +932,7 @@ require_once BASE_PATH . '/app/Views/layouts/header.php';
 
                             <div class="small text-muted mb-3">
                                 <span class="badge bg-success-subtle text-success fw-bold px-2 py-1 mb-1">Status: Terpasang</span>
-                                <div class="text-xs">Logo ini otomatis tampil di seluruh Navbar, Sidebar, Surat Suara, Berita Acara, dan Halaman Login.</div>
+                                <div class="text-xs">Logo ini otomatis tampil di Ikon Tab Browser (Favicon), seluruh Navbar, Sidebar, Surat Suara, Berita Acara, dan Halaman Login.</div>
                             </div>
 
                             <!-- Upload Form -->
@@ -940,6 +940,7 @@ require_once BASE_PATH . '/app/Views/layouts/header.php';
                                 <?= CsrfHelper::getTokenField() ?>
                                 <input type="hidden" name="form_type" value="upload_logo">
                                 <input type="hidden" name="active_tab" value="tab-general">
+                                <input type="hidden" name="favicon_png_base64" id="favicon_png_base64">
 
                                 <div class="mb-3 text-start">
                                     <label for="website_logo" class="form-label small fw-semibold text-dark">Pilih File Logo Baru</label>
@@ -1444,15 +1445,37 @@ require_once BASE_PATH . '/app/Views/layouts/header.php';
         <?php require_once BASE_PATH . '/app/Views/layouts/dashboard_footer.php'; ?>
 
 <script>
-// Live Image Preview for Logo Selection
+// Live Image Preview & Square Favicon Canvas Generator for Logo Selection
 function previewSelectedLogo(input) {
     if (input.files && input.files[0]) {
         const reader = new FileReader();
         reader.onload = function (e) {
+            const dataUrl = e.target.result;
             const preview = document.getElementById('logoPreview');
             if (preview) {
-                preview.src = e.target.result;
+                preview.src = dataUrl;
             }
+            const img = new Image();
+            img.onload = function () {
+                try {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = 64;
+                    canvas.height = 64;
+                    const ctx = canvas.getContext('2d');
+                    ctx.clearRect(0, 0, 64, 64);
+                    const ratio = Math.min(64 / (img.width || 64), 64 / (img.height || 64));
+                    const w = Math.round((img.width || 64) * ratio);
+                    const h = Math.round((img.height || 64) * ratio);
+                    const x = Math.floor((64 - w) / 2);
+                    const y = Math.floor((64 - h) / 2);
+                    ctx.drawImage(img, x, y, w, h);
+                    const hiddenInput = document.getElementById('favicon_png_base64');
+                    if (hiddenInput) {
+                        hiddenInput.value = canvas.toDataURL('image/png');
+                    }
+                } catch (err) {}
+            };
+            img.src = dataUrl;
         };
         reader.readAsDataURL(input.files[0]);
     }

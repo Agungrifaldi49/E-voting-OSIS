@@ -46,7 +46,7 @@
 }
 
 html, body {
-  overflow-x: hidden !important;
+  overflow-x: clip !important;
   max-width: 100vw;
 }
 
@@ -451,6 +451,7 @@ h1, h2, h3, h4, h5, h6 {
   min-height: 100vh;
   background-color: var(--surface-gray);
   position: relative;
+  width: 100%;
 }
 
 .sidebar {
@@ -459,13 +460,31 @@ h1, h2, h3, h4, h5, h6 {
   color: #94a3b8;
   flex-shrink: 0;
   height: 100vh;
+  max-height: 100vh;
   position: sticky;
   top: 0;
   overflow-y: auto;
+  overflow-x: hidden;
   border-right: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   flex-direction: column;
   z-index: 1030;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.15) var(--navy-900);
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 5px;
+}
+.sidebar::-webkit-scrollbar-track {
+  background: var(--navy-900);
+}
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
 }
 
 .sidebar-brand {
@@ -623,7 +642,7 @@ h1, h2, h3, h4, h5, h6 {
   flex-grow: 1;
   background: #f8fafc;
   padding: 1.75rem 2rem;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 .dashboard-footer {
@@ -879,6 +898,69 @@ h1, h2, h3, h4, h5, h6 {
   background: linear-gradient(135deg, #091322 0%, #1e293b 100%);
   border-bottom: 3px solid var(--gold-primary);
   color: #ffffff;
+}
+
+.modal-header-premium h1,
+.modal-header-premium h2,
+.modal-header-premium h3,
+.modal-header-premium h4,
+.modal-header-premium h5,
+.modal-header-premium h6,
+.modal-header-premium .modal-title,
+.modal-header.bg-dark h1,
+.modal-header.bg-dark h2,
+.modal-header.bg-dark h3,
+.modal-header.bg-dark h4,
+.modal-header.bg-dark h5,
+.modal-header.bg-dark h6,
+.modal-header.bg-dark .modal-title,
+.modal-header.bg-danger h1,
+.modal-header.bg-danger h2,
+.modal-header.bg-danger h3,
+.modal-header.bg-danger h4,
+.modal-header.bg-danger h5,
+.modal-header.bg-danger h6,
+.modal-header.bg-danger .modal-title,
+.modal-header.bg-primary h1,
+.modal-header.bg-primary h2,
+.modal-header.bg-primary h3,
+.modal-header.bg-primary h4,
+.modal-header.bg-primary h5,
+.modal-header.bg-primary h6,
+.modal-header.bg-primary .modal-title {
+  color: #ffffff !important;
+}
+
+/* Modal Purge Interactive Card Options */
+.modal-purge-option {
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border-width: 2px !important;
+}
+
+.modal-purge-option:hover {
+  border-color: var(--blue-primary) !important;
+  background-color: #f0f7ff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.12) !important;
+}
+
+.modal-purge-option:has(input:checked) {
+  border-color: var(--blue-primary) !important;
+  background-color: #eff6ff !important;
+  box-shadow: 0 0 0 1px var(--blue-primary);
+}
+
+.modal-purge-option.danger-option:hover {
+  border-color: var(--red-500) !important;
+  background-color: #fff1f2 !important;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15) !important;
+}
+
+.modal-purge-option.danger-option:has(input:checked) {
+  border-color: var(--red-500) !important;
+  background-color: #fef2f2 !important;
+  box-shadow: 0 0 0 1px var(--red-500);
 }
 
 /* ========================================================
@@ -1895,5 +1977,81 @@ h1, h2, h3, h4, h5, h6 {
   .live-result-photo-box {
     height: 175px !important;
   }
+}
+
+/* ==========================================================================
+   SWEETALERT2 CUSTOM PREMIUM STYLING
+   ========================================================================== */
+.swal2-popup.swal2-app-popup {
+  font-family: var(--font-body) !important;
+  border-radius: var(--radius-lg, 16px) !important;
+  padding: 2.25rem 2rem !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
+  box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25), 0 0 0 1px rgba(15, 23, 42, 0.05) !important;
+}
+
+.swal2-title.swal2-app-title {
+  font-family: var(--font-heading) !important;
+  font-weight: 700 !important;
+  font-size: 1.4rem !important;
+  color: var(--navy-900) !important;
+  margin-bottom: 0.65rem !important;
+  padding: 0 !important;
+}
+
+.swal2-html-container.swal2-app-html {
+  font-family: var(--font-body) !important;
+  font-size: 0.98rem !important;
+  color: var(--navy-700) !important;
+  line-height: 1.65 !important;
+  margin: 0.85rem 0 0 0 !important;
+}
+
+.swal2-app-html .swal-message-content {
+  font-size: 0.98rem;
+  color: var(--navy-800);
+}
+
+.swal2-actions {
+  margin-top: 1.85rem !important;
+  gap: 0.75rem !important;
+}
+
+.swal2-icon {
+  margin-top: 0.5rem !important;
+  margin-bottom: 1.25rem !important;
+}
+
+.swal2-icon.swal2-success {
+  border-color: var(--emerald-500, #10b981) !important;
+  color: var(--emerald-500, #10b981) !important;
+}
+.swal2-icon.swal2-success [class^='swal2-success-line'] {
+  background-color: var(--emerald-500, #10b981) !important;
+}
+.swal2-icon.swal2-success .swal2-success-ring {
+  border-color: rgba(16, 185, 129, 0.3) !important;
+}
+
+.swal2-icon.swal2-error {
+  border-color: var(--red-500, #ef4444) !important;
+  color: var(--red-500, #ef4444) !important;
+}
+.swal2-icon.swal2-error [class^='swal2-x-mark-line'] {
+  background-color: var(--red-500, #ef4444) !important;
+}
+
+.swal2-timer-progress-bar {
+  background: linear-gradient(90deg, var(--blue-primary, #2563eb), var(--gold-primary, #f59e0b)) !important;
+  height: 4px !important;
+  border-radius: 4px !important;
+}
+
+/* Toast styling */
+.swal2-toast {
+  font-family: var(--font-body) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
 }
 

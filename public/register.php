@@ -4,6 +4,10 @@ require_once dirname(__DIR__) . '/config/app.php';
 require_once dirname(__DIR__) . '/app/Helpers/AuthHelper.php';
 require_once dirname(__DIR__) . '/app/Helpers/CsrfHelper.php';
 require_once dirname(__DIR__) . '/app/Controllers/AuthController.php';
+require_once dirname(__DIR__) . '/app/Models/AcademicMaster.php';
+
+$activeMajors = AcademicMaster::getAllMajors('', true);
+$activeClasses = AcademicMaster::getAllClasses('', '', 0, true);
 
 if (AuthHelper::check()) {
     $role = AuthHelper::role();
@@ -88,28 +92,37 @@ require_once BASE_PATH . '/app/Views/layouts/alerts.php';
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label for="kelas" class="form-label fw-semibold text-dark">
-                                        Tingkat / Kelas <span class="text-danger">*</span>
+                                    <label for="jurusan" class="form-label fw-semibold text-dark">
+                                        Program Keahlian / Jurusan <span class="text-danger">*</span>
                                     </label>
-                                    <select class="form-select" id="kelas" name="kelas" required>
-                                        <option value="">-- Pilih Kelas --</option>
-                                        <option value="X">Kelas X (Sepuluh)</option>
-                                        <option value="XI">Kelas XI (Sebelas)</option>
-                                        <option value="XII">Kelas XII (Dua Belas)</option>
+                                    <select class="form-select" id="jurusan" name="jurusan" required onchange="filterClassesByMajor()">
+                                        <option value="">-- Pilih Jurusan --</option>
+                                        <?php foreach ($activeMajors as $m): ?>
+                                            <option value="<?= htmlspecialchars($m['nama_jurusan'], ENT_QUOTES, 'UTF-8') ?>" data-major-id="<?= (int)$m['id'] ?>">
+                                                <?= htmlspecialchars($m['nama_jurusan'] . ' (' . $m['kode_jurusan'] . ')', ENT_QUOTES, 'UTF-8') ?>
+                                            </option>
+                                        <?php endforeach; ?>
                                     </select>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label for="jurusan" class="form-label fw-semibold text-dark">
-                                        Program Keahlian / Jurusan <span class="text-danger">*</span>
+                                    <label for="kelas" class="form-label fw-semibold text-dark">
+                                        Tingkat / Kelas <span class="text-danger">*</span>
                                     </label>
-                                    <select class="form-select" id="jurusan" name="jurusan" required>
-                                        <option value="">-- Pilih Jurusan --</option>
-                                        <option value="Rekayasa Perangkat Lunak">Rekayasa Perangkat Lunak (RPL)</option>
-                                        <option value="Teknik Komputer & Jaringan">Teknik Komputer & Jaringan (TKJ)</option>
-                                        <option value="Akuntansi dan Keuangan Lembaga">Akuntansi dan Keuangan Lembaga (AKL)</option>
-                                        <option value="Otomatisasi & Tata Kelola Perkantoran">Otomatisasi & Tata Kelola Perkantoran (OTKP)</option>
-                                        <option value="Bisnis Daring dan Pemasaran">Bisnis Daring dan Pemasaran (BDP)</option>
+                                    <select class="form-select" id="kelas" name="kelas" required onchange="syncMajorFromSelectedClass()">
+                                        <option value="">-- Pilih Kelas --</option>
+                                        <?php if (!empty($activeClasses)): ?>
+                                            <?php foreach ($activeClasses as $c): ?>
+                                                <option value="<?= htmlspecialchars($c['nama_kelas'], ENT_QUOTES, 'UTF-8') ?>"
+                                                        data-major-nama="<?= htmlspecialchars($c['nama_jurusan'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+                                                    <?= htmlspecialchars($c['nama_kelas'] . (!empty($c['nama_jurusan']) ? ' — ' . $c['nama_jurusan'] : ''), ENT_QUOTES, 'UTF-8') ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <option value="X">Kelas X (Sepuluh)</option>
+                                            <option value="XI">Kelas XI (Sebelas)</option>
+                                            <option value="XII">Kelas XII (Dua Belas)</option>
+                                        <?php endif; ?>
                                     </select>
                                 </div>
 
@@ -160,6 +173,40 @@ require_once BASE_PATH . '/app/Views/layouts/alerts.php';
                                 <i class="bi bi-person-check-fill me-2"></i> Daftarkan Akun Siswa
                             </button>
                         </form>
+                        <script>
+                        function filterClassesByMajor() {
+                            const jurusanSel = document.getElementById('jurusan');
+                            const kelasSel = document.getElementById('kelas');
+                            if (!jurusanSel || !kelasSel) return;
+                            const selectedJurusan = jurusanSel.value;
+                            Array.from(kelasSel.options).forEach(opt => {
+                                if (!opt.value) return;
+                                const optMajor = opt.getAttribute('data-major-nama') || '';
+                                if (!selectedJurusan || !optMajor || optMajor === selectedJurusan) {
+                                    opt.hidden = false;
+                                } else {
+                                    opt.hidden = true;
+                                }
+                            });
+                            const currentOpt = kelasSel.options[kelasSel.selectedIndex];
+                            if (currentOpt && currentOpt.hidden) {
+                                kelasSel.value = '';
+                            }
+                        }
+
+                        function syncMajorFromSelectedClass() {
+                            const jurusanSel = document.getElementById('jurusan');
+                            const kelasSel = document.getElementById('kelas');
+                            if (!jurusanSel || !kelasSel) return;
+                            const currentOpt = kelasSel.options[kelasSel.selectedIndex];
+                            if (currentOpt) {
+                                const majorNama = currentOpt.getAttribute('data-major-nama');
+                                if (majorNama && !jurusanSel.value) {
+                                    jurusanSel.value = majorNama;
+                                }
+                            }
+                        }
+                        </script>
                     <?php else: ?>
                         <!-- Form Registrasi Guru -->
                         <form action="<?= base_url('register.php') ?>" method="POST" id="form-register-guru">

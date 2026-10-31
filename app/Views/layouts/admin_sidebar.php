@@ -43,6 +43,16 @@ $currentScript = basename($_SERVER['SCRIPT_NAME'] ?? '');
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link <?= ($currentScript === 'majors.php') ? 'active' : '' ?>" href="<?= base_url('admin/majors.php') ?>">
+                <i class="bi bi-diagram-3"></i> Manajemen Jurusan
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link <?= ($currentScript === 'classes.php') ? 'active' : '' ?>" href="<?= base_url('admin/classes.php') ?>">
+                <i class="bi bi-door-open"></i> Manajemen Kelas
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link <?= ($currentScript === 'import-students.php') ? 'active' : '' ?>" href="<?= base_url('admin/import-students.php') ?>">
                 <i class="bi bi-file-earmark-arrow-up"></i> Import Data Siswa
             </a>

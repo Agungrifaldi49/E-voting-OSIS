@@ -203,14 +203,16 @@ class User {
         $params = [];
 
         if (!empty($search)) {
-            $sql .= " AND (sp.nama_lengkap LIKE :s1 OR sp.nisn LIKE :s2 OR sp.jurusan LIKE :s3)";
+            $sql .= " AND (sp.nama_lengkap LIKE :s1 OR sp.nisn LIKE :s2 OR sp.jurusan LIKE :s3 OR sp.kelas LIKE :s4)";
             $params[':s1'] = "%{$search}%";
             $params[':s2'] = "%{$search}%";
             $params[':s3'] = "%{$search}%";
+            $params[':s4'] = "%{$search}%";
         }
         if (!empty($kelas)) {
-            $sql .= " AND sp.kelas LIKE :kelas";
-            $params[':kelas'] = "{$kelas}%";
+            $sql .= " AND (sp.kelas = :kelas_exact OR sp.kelas LIKE :kelas_prefix)";
+            $params[':kelas_exact'] = $kelas;
+            $params[':kelas_prefix'] = "{$kelas} %";
         }
 
         $sql .= " ORDER BY sp.nama_lengkap ASC LIMIT {$limit} OFFSET {$offset}";
@@ -230,14 +232,16 @@ class User {
         $params = [];
 
         if (!empty($search)) {
-            $sql .= " AND (sp.nama_lengkap LIKE :s1 OR sp.nisn LIKE :s2 OR sp.jurusan LIKE :s3)";
+            $sql .= " AND (sp.nama_lengkap LIKE :s1 OR sp.nisn LIKE :s2 OR sp.jurusan LIKE :s3 OR sp.kelas LIKE :s4)";
             $params[':s1'] = "%{$search}%";
             $params[':s2'] = "%{$search}%";
             $params[':s3'] = "%{$search}%";
+            $params[':s4'] = "%{$search}%";
         }
         if (!empty($kelas)) {
-            $sql .= " AND sp.kelas LIKE :kelas";
-            $params[':kelas'] = "{$kelas}%";
+            $sql .= " AND (sp.kelas = :kelas_exact OR sp.kelas LIKE :kelas_prefix)";
+            $params[':kelas_exact'] = $kelas;
+            $params[':kelas_prefix'] = "{$kelas} %";
         }
 
         $stmt = $pdo->prepare($sql);
@@ -294,6 +298,20 @@ class User {
         $hash = password_hash($newPassword, PASSWORD_BCRYPT);
         $stmt = $pdo->prepare("UPDATE users SET password_hash = :hash, updated_at = NOW() WHERE id = :id");
         return $stmt->execute([':hash' => $hash, ':id' => $userId]);
+    }
+
+    public static function updateStudentAcademic(int $userId, string $kelas, string $jurusan): bool {
+        $pdo = Database::getConnection();
+        $stmt = $pdo->prepare("
+            UPDATE student_profiles
+            SET kelas = :kelas, jurusan = :jurusan, updated_at = NOW()
+            WHERE user_id = :uid
+        ");
+        return $stmt->execute([
+            ':kelas'   => $kelas,
+            ':jurusan' => $jurusan,
+            ':uid'     => $userId,
+        ]);
     }
 
     public static function updateAdminProfile(int $userId, array $data, ?array $avatarFile = null): array {

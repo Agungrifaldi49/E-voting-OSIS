@@ -7,6 +7,9 @@ require_once dirname(__DIR__) . '/app/Controllers/CandidateController.php';
 require_once dirname(__DIR__) . '/app/Models/Candidate.php';
 require_once dirname(__DIR__) . '/app/Models/Election.php';
 require_once dirname(__DIR__) . '/app/Models/Vote.php';
+require_once dirname(__DIR__) . '/app/Models/AcademicMaster.php';
+
+$masterClassesForCandidates = AcademicMaster::getAllClasses('', '', 0, true);
 
 AuthHelper::requireRole('admin');
 
@@ -586,7 +589,7 @@ require_once BASE_PATH . '/app/Views/layouts/header.php';
                                         </div>
                                         <div class="mb-2">
                                             <label for="cand-kketua" class="form-label fw-semibold small mb-1">Kelas Ketua <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="cand-kketua" name="kelas_ketua" placeholder="Contoh: XI RPL 1" required>
+                                            <input type="text" class="form-control" id="cand-kketua" name="kelas_ketua" list="masterClassOptions" placeholder="Contoh: XI RPL 1" required>
                                         </div>
                                         <div class="mb-0">
                                             <label for="foto_ketua" class="form-label fw-semibold small mb-1">Foto Calon Ketua</label>
@@ -609,7 +612,12 @@ require_once BASE_PATH . '/app/Views/layouts/header.php';
                                         </div>
                                         <div class="mb-2">
                                             <label for="cand-kwakil" class="form-label fw-semibold small mb-1">Kelas Wakil <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="cand-kwakil" name="kelas_wakil" placeholder="Contoh: XI TKJ 2" required>
+                                            <input type="text" class="form-control" id="cand-kwakil" name="kelas_wakil" list="masterClassOptions" placeholder="Contoh: XI TKJ 2" required>
+                                            <datalist id="masterClassOptions">
+                                                <?php foreach ($masterClassesForCandidates as $mc): ?>
+                                                    <option value="<?= htmlspecialchars($mc['nama_kelas'], ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($mc['nama_jurusan'] ?? '', ENT_QUOTES, 'UTF-8') ?></option>
+                                                <?php endforeach; ?>
+                                            </datalist>
                                         </div>
                                         <div class="mb-0">
                                             <label for="foto_wakil" class="form-label fw-semibold small mb-1">Foto Calon Wakil</label>

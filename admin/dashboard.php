@@ -244,7 +244,7 @@ require_once BASE_PATH . '/app/Views/layouts/header.php';
                         <?php if (empty($stats['recent_logs'])): ?>
                             <div class="text-muted text-center py-4">Belum ada catatan aktivitas.</div>
                         <?php else: ?>
-                            <?php foreach ($stats['recent_logs'] as $log): ?>
+                            <?php foreach (array_slice($stats['recent_logs'], 0, 5) as $log): ?>
                                 <div class="list-group-item px-0 py-2 border-bottom">
                                     <div class="d-flex justify-content-between">
                                         <span class="badge bg-light text-dark border"><?= htmlspecialchars($log['action'], ENT_QUOTES, 'UTF-8') ?></span>
