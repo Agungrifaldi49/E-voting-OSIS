@@ -165,12 +165,122 @@ h1, h2, h3, h4, h5, h6 {
   }
   .navbar-collapse .d-flex.align-items-center > * {
     width: 100%;
-    text-align: center;
   }
   .navbar-collapse .d-flex.align-items-center .btn {
     width: 100%;
     margin-bottom: 0.5rem;
     justify-content: center;
+  }
+  
+  /* Mobile User Account Box on Public Homepage Navbar - Ultra Modern & Luxury */
+  .mobile-user-profile-box {
+    background: linear-gradient(145deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.75) 100%);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    border-radius: 18px;
+    padding: 1.25rem 1.15rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+  }
+  .mobile-user-profile-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .mobile-user-profile-box .user-info-row {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    text-align: left;
+    position: relative;
+    z-index: 1;
+  }
+  .mobile-user-profile-box .mobile-user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.25) 0%, rgba(217, 119, 6, 0.35) 100%);
+    border: 1.5px solid rgba(245, 158, 11, 0.6);
+    color: var(--gold-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.25);
+    flex-shrink: 0;
+  }
+  .mobile-user-profile-box .mobile-user-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 0.25rem 0.65rem;
+    border-radius: 50rem;
+    text-transform: uppercase;
+  }
+  .mobile-user-profile-box .user-nav-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+  .mobile-user-profile-box .user-nav-actions .btn {
+    margin-bottom: 0 !important;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .mobile-user-profile-box .user-nav-actions .btn-dashboard-action {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff !important;
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+  }
+  .mobile-user-profile-box .user-nav-actions .btn-dashboard-action:hover,
+  .mobile-user-profile-box .user-nav-actions .btn-dashboard-action:active {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6);
+  }
+  .mobile-user-profile-box .user-nav-actions .btn-voting-action {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    border: none;
+    color: var(--navy-950) !important;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35);
+  }
+  .mobile-user-profile-box .user-nav-actions .btn-voting-action:hover,
+  .mobile-user-profile-box .user-nav-actions .btn-voting-action:active {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+  }
+  .mobile-user-profile-box .user-nav-actions .btn-logout-action {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.35);
+    color: #fca5a5 !important;
+  }
+  .mobile-user-profile-box .user-nav-actions .btn-logout-action:hover,
+  .mobile-user-profile-box .user-nav-actions .btn-logout-action:active {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ffffff !important;
+    border-color: #ef4444;
   }
 }
 

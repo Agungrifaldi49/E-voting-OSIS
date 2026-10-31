@@ -43,8 +43,8 @@ $faviconData = class_exists('SettingHelper') && method_exists('SettingHelper', '
     <!-- Bootstrap 5.3 CSS (Local first, CDN fallback) -->
     <link rel="stylesheet" href="<?= asset('assets/css/bootstrap.min.css') ?>" onerror="this.onerror=null;this.href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css';">
 
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Bootstrap Icons (Local first, CDN fallback) -->
+    <link rel="stylesheet" href="<?= asset('assets/css/bootstrap-icons.min.css') ?>" onerror="this.onerror=null;this.href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css';">
 
     <!-- SweetAlert2 CSS (Local first, CDN fallback) -->
     <link rel="stylesheet" href="<?= asset('assets/css/sweetalert2.min.css') ?>" onerror="this.onerror=null;this.href='https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css';">

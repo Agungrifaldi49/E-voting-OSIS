@@ -50,7 +50,8 @@ $user = AuthHelper::user();
 
             <div class="d-flex align-items-center gap-2">
                 <?php if ($isLoggedIn): ?>
-                    <div class="dropdown">
+                    <!-- Desktop User Dropdown (>= 992px) -->
+                    <div class="dropdown d-none d-lg-block">
                         <button class="btn btn-outline-light dropdown-toggle d-flex align-items-center gap-2 py-2 px-3" type="button" id="userMenuDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-person-circle fs-5 text-warning"></i>
                             <span class="small fw-semibold"><?= htmlspecialchars($user['nama_lengkap'], ENT_QUOTES, 'UTF-8') ?></span>
@@ -77,6 +78,64 @@ $user = AuthHelper::user();
                                 </a>
                             </li>
                         </ul>
+                    </div>
+
+                    <!-- Mobile User Profile Box (< 992px) - Ultra Modern, Luxury & Professional with Rich Icons -->
+                    <div class="mobile-user-profile-box d-lg-none">
+                        <div class="user-info-row">
+                            <div class="mobile-user-avatar">
+                                <?php if (($user['role'] ?? '') === 'admin'): ?>
+                                    <i class="bi bi-shield-lock-fill"></i>
+                                <?php elseif (($user['role'] ?? '') === 'guru'): ?>
+                                    <i class="bi bi-person-workspace"></i>
+                                <?php else: ?>
+                                    <i class="bi bi-mortarboard-fill"></i>
+                                <?php endif; ?>
+                            </div>
+                            <div class="min-w-0 flex-grow-1">
+                                <div class="fw-bold text-white text-truncate" style="font-size: 1rem; letter-spacing: -0.01em;">
+                                    <?= htmlspecialchars($user['nama_lengkap'], ENT_QUOTES, 'UTF-8') ?>
+                                </div>
+                                <div class="d-flex align-items-center gap-2 mt-1 flex-wrap">
+                                    <?php if (($user['role'] ?? '') === 'admin'): ?>
+                                        <span class="mobile-user-badge bg-danger bg-opacity-25 text-danger border border-danger border-opacity-50">
+                                            <i class="bi bi-shield-shaded"></i> ADMINISTRATOR
+                                        </span>
+                                    <?php elseif (($user['role'] ?? '') === 'guru'): ?>
+                                        <span class="mobile-user-badge bg-info bg-opacity-25 text-info border border-info border-opacity-50">
+                                            <i class="bi bi-award-fill"></i> DEWAN GURU
+                                        </span>
+                                    <?php else: ?>
+                                        <span class="mobile-user-badge bg-primary bg-opacity-25 text-primary border border-primary border-opacity-50">
+                                            <i class="bi bi-check-circle-fill"></i> PEMILIH SISWA
+                                        </span>
+                                    <?php endif; ?>
+
+                                    <span class="text-white-50 small d-inline-flex align-items-center gap-1 font-monospace" style="font-size: 0.78rem;">
+                                        <i class="bi bi-person-badge"></i> <?= htmlspecialchars($user['username'], ENT_QUOTES, 'UTF-8') ?>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="user-nav-actions pt-2 border-top border-white border-opacity-10">
+                            <a href="<?= base_url($user['role'] . '/dashboard.php') ?>" class="btn btn-dashboard-action">
+                                <i class="bi bi-speedometer2 fs-5"></i>
+                                <span>Masuk ke Dashboard <?= ucfirst($user['role']) ?></span>
+                                <i class="bi bi-arrow-right-short fs-4 ms-auto"></i>
+                            </a>
+                            <?php if ($user['role'] === 'siswa' || ($user['role'] === 'guru')): ?>
+                            <a href="<?= base_url('voting.php') ?>" class="btn btn-voting-action">
+                                <i class="bi bi-check2-square fs-5"></i>
+                                <span>Buka Bilik Suara / Voting</span>
+                                <i class="bi bi-box-arrow-in-right fs-5 ms-auto"></i>
+                            </a>
+                            <?php endif; ?>
+                            <a href="<?= base_url('logout.php') ?>" class="btn btn-logout-action">
+                                <i class="bi bi-box-arrow-right fs-5"></i>
+                                <span>Keluar dari Akun (Logout)</span>
+                            </a>
+                        </div>
                     </div>
                 <?php else: ?>
                     <a href="<?= base_url('login.php') ?>" class="btn btn-outline-light px-3 py-2 fw-medium" id="btn-nav-login">
