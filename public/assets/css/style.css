@@ -14,6 +14,7 @@
   --navy-600: #475569;
 
   --blue-primary: #2563eb;
+  --primary-accent: #2563eb;
   --blue-hover: #1d4ed8;
   --blue-light: #dbeafe;
   --blue-subtle: #eff6ff;
@@ -2054,4 +2055,194 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15) !important;
   border: 1px solid rgba(0, 0, 0, 0.08) !important;
 }
+
+/* ==========================================================================
+   SISWA & GURU PORTAL RESPONSIVE ENHANCEMENTS (MOBILE, TABLET, DESKTOP)
+   ========================================================================== */
+
+/* Responsive width utilities missing from standard Bootstrap 5 */
+@media (min-width: 576px) {
+  .w-sm-auto {
+    width: auto !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .w-md-auto {
+    width: auto !important;
+  }
+}
+
+/* Voter Card Responsive Refinements */
+.student-card-luxury .voter-status-pill,
+.teacher-card-luxury .voter-status-pill {
+  white-space: normal;
+  text-align: left;
+  line-height: 1.35;
+  max-width: 100%;
+}
+
+.voter-detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.voter-detail-row .detail-label {
+  flex-shrink: 0;
+}
+
+.voter-detail-row .detail-value {
+  text-align: right;
+  word-break: break-word;
+  max-width: 100%;
+}
+
+/* Verification Code Box on Status Page */
+.verification-code-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  max-width: 100%;
+  word-break: break-all;
+}
+
+/* Tablet & Mobile (< 992px) */
+@media (max-width: 991.98px) {
+  .dashboard-main-area {
+    padding-bottom: 84px !important;
+    min-width: 0;
+  }
+  .dashboard-content {
+    padding: 1.15rem 1rem !important;
+  }
+  .certificate-seal {
+    flex-shrink: 0;
+  }
+}
+
+/* Mobile Landscape & Small Tablet (< 768px) */
+@media (max-width: 767.98px) {
+  .student-card-luxury,
+  .teacher-card-luxury {
+    padding: 1.25rem !important;
+    border-radius: 18px !important;
+  }
+  .student-card-luxury h3,
+  .teacher-card-luxury h3 {
+    font-size: 1.3rem !important;
+    line-height: 1.3 !important;
+    word-break: break-word;
+  }
+  .certificate-card {
+    border-radius: 18px !important;
+  }
+  .certificate-seal {
+    width: 72px;
+    height: 72px;
+  }
+}
+
+/* Mobile Portrait (< 576px) */
+@media (max-width: 575.98px) {
+  .dashboard-content {
+    padding: 0.9rem 0.75rem !important;
+  }
+  .dashboard-topbar {
+    padding-left: 0.65rem !important;
+    padding-right: 0.65rem !important;
+  }
+  .student-card-luxury,
+  .teacher-card-luxury {
+    padding: 1.1rem !important;
+    border-radius: 16px !important;
+  }
+  .student-card-luxury h3,
+  .teacher-card-luxury h3 {
+    font-size: 1.18rem !important;
+  }
+  .student-card-luxury .card-chip,
+  .teacher-card-luxury .card-chip {
+    width: 36px;
+    height: 26px;
+    font-size: 0.85rem;
+  }
+  .student-quick-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.45rem;
+  }
+  .quick-action-box {
+    padding: 0.65rem 0.25rem;
+    border-radius: 14px;
+  }
+  .quick-action-icon {
+    width: 38px;
+    height: 38px;
+    font-size: 1.1rem;
+    border-radius: 11px;
+    margin-bottom: 0.35rem;
+  }
+  .quick-action-title {
+    font-size: 0.68rem;
+  }
+  .certificate-seal {
+    width: 64px;
+    height: 64px;
+    border-width: 2px;
+  }
+  .certificate-seal i {
+    font-size: 1.35rem !important;
+  }
+  .verification-code-pill {
+    border-radius: 14px !important;
+    padding: 0.65rem 0.85rem !important;
+    width: 100%;
+  }
+  .mobile-bottom-nav {
+    height: 62px;
+    padding: 0 0.25rem;
+  }
+  .mobile-bottom-nav .nav-item {
+    font-size: 0.64rem;
+  }
+  .mobile-bottom-nav .nav-item i {
+    font-size: 1.15rem;
+  }
+  .mobile-bottom-nav .vote-icon-bubble {
+    width: 44px;
+    height: 44px;
+    margin-top: -20px;
+    font-size: 1.2rem;
+  }
+  .swal2-popup.swal2-app-popup {
+    padding: 1.5rem 1.15rem !important;
+  }
+}
+
+/* Extra Small Mobile (< 380px) */
+@media (max-width: 379.98px) {
+  .student-quick-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+  .quick-action-box {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 0.6rem;
+    padding: 0.6rem 0.75rem;
+    text-align: left;
+  }
+  .quick-action-icon {
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+  .quick-action-title {
+    font-size: 0.74rem;
+  }
+}
+
 

@@ -11,12 +11,15 @@ $currentScript = basename($_SERVER['SCRIPT_NAME'] ?? '');
                 <div class="sidebar-brand-sub"><?= htmlspecialchars(app_setting('school_name', SCHOOL_NAME), ENT_QUOTES, 'UTF-8') ?></div>
             </div>
         </a>
-        <button type="button" class="btn btn-sm btn-outline-secondary text-white d-lg-none border-0" onclick="document.querySelector('.sidebar').classList.remove('show-mobile'); document.getElementById('sidebarBackdrop').classList.add('d-none');">
+        <button type="button" class="btn btn-sm btn-outline-secondary text-white d-lg-none border-0" onclick="window.closeSidebarMobile(event)" aria-label="Tutup Menu">
             <i class="bi bi-x-lg fs-5"></i>
         </button>
     </div>
 
-    <div class="sidebar-heading">Menu Pemilih</div>
+    <div class="sidebar-heading d-flex align-items-center justify-content-between">
+        <span>Menu Pemilih</span>
+        <span class="badge bg-primary-subtle text-primary border border-primary border-opacity-25" style="font-size: 0.65rem;">SISWA</span>
+    </div>
     <ul class="nav flex-column mb-3">
         <li class="nav-item">
             <a class="nav-link <?= ($currentScript === 'dashboard.php') ? 'active' : '' ?>" href="<?= base_url('siswa/dashboard.php') ?>">

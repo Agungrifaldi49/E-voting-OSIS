@@ -28,15 +28,15 @@ require_once BASE_PATH . '/app/Views/layouts/header.php';
         <?php require_once BASE_PATH . '/app/Views/layouts/alerts.php'; ?>
 
         <div class="mb-4">
-            <h3 class="fw-bold text-dark mb-1">Tata Cara &amp; Panduan Pemilu OSIS</h3>
-            <p class="text-muted small mb-0">Petunjuk teknis pelaksanaan pemungutan suara elektronik di SMK Muthia Harapan Cicalengka.</p>
+            <h3 class="fw-bold text-dark mb-1" style="font-size: clamp(1.25rem, 4vw, 1.65rem);">Tata Cara &amp; Panduan Pemilu OSIS</h3>
+            <p class="text-muted small mb-0">Petunjuk teknis pelaksanaan pemungutan suara elektronik di <?= htmlspecialchars(app_setting('school_name', SCHOOL_NAME), ENT_QUOTES, 'UTF-8') ?>.</p>
         </div>
 
-        <div class="row g-4">
+        <div class="row g-3 g-md-4">
             <div class="col-lg-8">
                 <!-- 4 Langkah Mudah Memilih -->
-                <div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
-                    <h5 class="fw-bold text-dark mb-3"><i class="bi bi-phone-fill text-primary me-2"></i> 4 Langkah Mudah Memilih dari HP</h5>
+                <div class="card border-0 shadow-sm rounded-4 p-3 p-md-4 mb-4">
+                    <h5 class="fw-bold text-dark mb-3"><i class="bi bi-phone-fill text-primary me-2"></i> 4 Langkah Mudah Memilih dari HP &amp; Laptop</h5>
                     <div class="row g-3">
                         <div class="col-sm-6">
                             <div class="p-3 bg-light rounded-4 border h-100">
@@ -49,7 +49,7 @@ require_once BASE_PATH . '/app/Views/layouts/header.php';
                             <div class="p-3 bg-light rounded-4 border h-100">
                                 <span class="badge bg-primary text-white fw-bold mb-2">Langkah 2</span>
                                 <h6 class="fw-bold text-dark mb-1">Masuk Bilik Suara</h6>
-                                <p class="text-muted small mb-0">Tekan tombol <strong>"Bilik Suara"</strong> di menu bawah HP Anda pada saat jadwal pemilihan dibuka.</p>
+                                <p class="text-muted small mb-0">Tekan tombol <strong>"Bilik Suara"</strong> di menu navigasi saat jadwal pemilihan berlangsung.</p>
                             </div>
                         </div>
                         <div class="col-sm-6">
@@ -70,36 +70,36 @@ require_once BASE_PATH . '/app/Views/layouts/header.php';
                 </div>
 
                 <!-- Ketentuan Pemilih -->
-                <div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
+                <div class="card border-0 shadow-sm rounded-4 p-3 p-md-4 mb-4">
                     <h5 class="fw-bold text-dark mb-3"><i class="bi bi-info-circle text-primary me-2"></i> Ketentuan Pemilih</h5>
                     <ul class="list-unstyled mb-0 d-flex flex-column gap-2 small text-muted">
                         <li class="d-flex align-items-start gap-2">
-                            <i class="bi bi-check-circle-fill text-success mt-1"></i>
-                            <span>Pemilih adalah seluruh siswa aktif SMK Muthia Harapan Cicalengka yang terdaftar di DPT resmi.</span>
+                            <i class="bi bi-check-circle-fill text-success mt-1 flex-shrink-0"></i>
+                            <span>Pemilih adalah seluruh siswa aktif serta dewan guru (sesuai kebijakan periode aktif) yang terdaftar di DPT resmi.</span>
                         </li>
                         <li class="d-flex align-items-start gap-2">
-                            <i class="bi bi-check-circle-fill text-success mt-1"></i>
-                            <span>Setiap pemilih hanya memiliki <strong>1 (satu) hak suara sah</strong> yang dilindungi dari pencoblosan ganda (*double voting*).</span>
+                            <i class="bi bi-check-circle-fill text-success mt-1 flex-shrink-0"></i>
+                            <span>Setiap pemilih hanya memiliki <strong>1 (satu) hak suara sah</strong> yang dilindungi dari pencoblosan ganda (<em>double voting</em>).</span>
                         </li>
                         <li class="d-flex align-items-start gap-2">
-                            <i class="bi bi-check-circle-fill text-success mt-1"></i>
+                            <i class="bi bi-check-circle-fill text-success mt-1 flex-shrink-0"></i>
                             <span>Pilihan bersifat <strong>LUBER JURDIL</strong> (Langsung, Umum, Bebas, Rahasia, Jujur, dan Adil).</span>
                         </li>
                         <li class="d-flex align-items-start gap-2">
-                            <i class="bi bi-check-circle-fill text-success mt-1"></i>
-                            <span>Sistem dapat diakses melalui browser smartphone (Chrome, Safari), tablet, maupun laptop.</span>
+                            <i class="bi bi-check-circle-fill text-success mt-1 flex-shrink-0"></i>
+                            <span>Sistem dapat diakses dengan nyaman melalui browser smartphone (Chrome, Safari), tablet, maupun laptop.</span>
                         </li>
                     </ul>
                 </div>
 
-                <!-- FAQ Siswa -->
-                <div class="card border-0 shadow-sm rounded-4 p-4">
+                <!-- FAQ Siswa & Guru -->
+                <div class="card border-0 shadow-sm rounded-4 p-3 p-md-4">
                     <h5 class="fw-bold text-dark mb-3"><i class="bi bi-question-circle text-warning me-2"></i> Pertanyaan yang Sering Diajukan (FAQ)</h5>
                     <div class="accordion accordion-flush" id="faqAccordionSiswa">
                         <div class="accordion-item border-bottom">
                             <h2 class="accordion-header" id="headingOne">
-                                <button class="accordion-button collapsed fw-semibold text-dark px-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
-                                    Apakah guru atau panitia bisa melihat siapa yang saya pilih?
+                                <button class="accordion-button collapsed fw-semibold text-dark px-0 py-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                                    Apakah panitia atau pihak lain bisa melihat siapa yang saya pilih?
                                 </button>
                             </h2>
                             <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#faqAccordionSiswa">
@@ -111,20 +111,20 @@ require_once BASE_PATH . '/app/Views/layouts/header.php';
 
                         <div class="accordion-item border-bottom">
                             <h2 class="accordion-header" id="headingTwo">
-                                <button class="accordion-button collapsed fw-semibold text-dark px-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
-                                    Bagaimana jika saya lupa password akun siswa?
+                                <button class="accordion-button collapsed fw-semibold text-dark px-0 py-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                                    Bagaimana jika saya lupa kata sandi (password) akun saya?
                                 </button>
                             </h2>
                             <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordionSiswa">
                                 <div class="accordion-body px-0 text-muted small">
-                                    Segera hubungi tim helpdesk panitia pemilihan di posko panitia sekolah atau melalui WhatsApp dengan menunjukkan kartu pelajar / NISN asli Anda.
+                                    Segera hubungi tim helpdesk panitia pemilihan di posko panitia sekolah atau melalui WhatsApp. Admin panitia dapat langsung mereset kata sandi akun Anda melalui panel Data Pemilih.
                                 </div>
                             </div>
                         </div>
 
                         <div class="accordion-item border-bottom">
                             <h2 class="accordion-header" id="headingThree">
-                                <button class="accordion-button collapsed fw-semibold text-dark px-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                                <button class="accordion-button collapsed fw-semibold text-dark px-0 py-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
                                     Bisakah saya mengubah pilihan setelah menekan tombol konfirmasi?
                                 </button>
                             </h2>
@@ -169,8 +169,8 @@ require_once BASE_PATH . '/app/Views/layouts/header.php';
 
                     <!-- Visual Decoupled Architecture Diagram -->
                     <div class="p-2.5 rounded-3 mb-3 position-relative" style="z-index: 2; background: rgba(15, 23, 42, 0.5); border: 1px dashed rgba(56, 189, 248, 0.25);">
-                        <div class="d-flex align-items-center justify-content-between text-center" style="font-size: 0.72rem;">
-                            <div class="px-2 py-1 rounded" style="background: rgba(255, 255, 255, 0.08); color: #f1f5f9;">
+                        <div class="d-flex flex-wrap align-items-center justify-content-around gap-2 text-center" style="font-size: 0.72rem;">
+                            <div class="px-2 py-1.5 rounded flex-grow-1" style="background: rgba(255, 255, 255, 0.08); color: #f1f5f9; min-width: 82px;">
                                 <i class="bi bi-person-badge-fill d-block fs-6 text-info mb-0.5"></i>
                                 <span>Akun Pemilih</span>
                             </div>
@@ -180,7 +180,7 @@ require_once BASE_PATH . '/app/Views/layouts/header.php';
                                 </span>
                                 <span style="font-size: 0.62rem; color: #94a3b8;">Tanpa Relasi DB</span>
                             </div>
-                            <div class="px-2 py-1 rounded" style="background: rgba(255, 255, 255, 0.08); color: #f1f5f9;">
+                            <div class="px-2 py-1.5 rounded flex-grow-1" style="background: rgba(255, 255, 255, 0.08); color: #f1f5f9; min-width: 82px;">
                                 <i class="bi bi-box-seam-fill d-block fs-6 text-warning mb-0.5"></i>
                                 <span>Kotak Suara</span>
                             </div>

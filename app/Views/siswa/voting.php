@@ -8,39 +8,41 @@ $dashboardUrl = base_url(($currentUser['role'] ?? 'siswa') . '/dashboard.php');
 ?>
 
 <!-- Dedicated Voting Booth Navigation Bar (Bilik Suara) -->
-<header class="bg-white border-bottom shadow-sm sticky-top py-2 px-3 px-md-4">
-    <div class="container-fluid d-flex justify-content-between align-items-center">
-        <div class="d-flex align-items-center gap-2">
-            <img src="<?= app_logo() ?>" alt="Logo" class="rounded object-fit-contain bg-light p-1" style="width: 38px; height: 38px;">
-            <div>
-                <h6 class="fw-bold mb-0 text-dark"><?= htmlspecialchars(app_setting('school_name', SCHOOL_NAME), ENT_QUOTES, 'UTF-8') ?></h6>
-                <small class="text-primary fw-semibold"><i class="bi bi-shield-lock-fill me-1"></i>Bilik Suara Elektronik Resmi</small>
+<header class="bg-white border-bottom shadow-sm sticky-top py-2 px-2 px-sm-3 px-md-4">
+    <div class="container-fluid d-flex justify-content-between align-items-center gap-2 flex-nowrap">
+        <div class="d-flex align-items-center gap-2 min-w-0" style="min-width: 0;">
+            <img src="<?= app_logo() ?>" alt="Logo" class="rounded object-fit-contain bg-light p-1 flex-shrink-0" style="width: 36px; height: 36px;">
+            <div class="min-w-0" style="min-width: 0;">
+                <h6 class="fw-bold mb-0 text-dark text-truncate" style="font-size: clamp(0.85rem, 2.5vw, 1rem);"><?= htmlspecialchars(app_setting('school_name', SCHOOL_NAME), ENT_QUOTES, 'UTF-8') ?></h6>
+                <small class="text-primary fw-semibold d-block text-truncate" style="font-size: 0.72rem;"><i class="bi bi-shield-lock-fill me-1"></i>Bilik Suara Elektronik Resmi</small>
             </div>
         </div>
-        <div class="d-flex align-items-center gap-3">
+        <div class="d-flex align-items-center gap-2 gap-md-3 flex-shrink-0">
             <div class="d-none d-md-block text-end">
                 <div class="small fw-bold text-dark"><?= htmlspecialchars($currentUser['nama_lengkap'] ?? '', ENT_QUOTES, 'UTF-8') ?></div>
                 <small class="text-muted text-uppercase"><?= htmlspecialchars($currentUser['role'] ?? '', ENT_QUOTES, 'UTF-8') ?> &bull; <?= htmlspecialchars($currentUser['username'] ?? '', ENT_QUOTES, 'UTF-8') ?></small>
             </div>
-            <a href="<?= $dashboardUrl ?>" class="btn btn-outline-secondary btn-sm" onclick="return confirm('Apakah Anda yakin ingin keluar dari bilik suara? Pilihan Anda belum tersimpan.')">
-                <i class="bi bi-arrow-left me-1"></i> Batal &amp; Kembali
+            <a href="<?= $dashboardUrl ?>" class="btn btn-outline-secondary btn-sm px-2 px-sm-3 flex-shrink-0" onclick="return confirm('Apakah Anda yakin ingin keluar dari bilik suara? Pilihan Anda belum tersimpan.')">
+                <i class="bi bi-arrow-left me-1"></i>
+                <span class="d-none d-sm-inline">Batal &amp; Kembali</span>
+                <span class="d-sm-none">Kembali</span>
             </a>
         </div>
     </div>
 </header>
 
-<div class="container py-4">
+<div class="container py-3 py-md-4">
     <?php require_once BASE_PATH . '/app/Views/layouts/alerts.php'; ?>
-    <div class="row justify-content-center mb-4">
+    <div class="row justify-content-center mb-3 mb-md-4">
         <div class="col-lg-8 text-center">
             <span class="badge bg-success-subtle text-success fw-bold px-3 py-2 rounded-pill text-uppercase mb-2">
-                <i class="bi bi-shield-lock-fill me-1"></i> Bilik Suara Rahasia & Terverifikasi
+                <i class="bi bi-shield-lock-fill me-1"></i> Bilik Suara Rahasia &amp; Terverifikasi
             </span>
-            <h2 class="display-6 fw-bold text-dark">Surat Suara Elektronik OSIS</h2>
-            <p class="text-muted">
+            <h2 class="display-6 fw-bold text-dark" style="font-size: clamp(1.4rem, 4.5vw, 2.25rem);">Surat Suara Elektronik OSIS</h2>
+            <p class="text-muted small mb-3">
                 Silakan tentukan pilihan Anda secara bijak, mandiri, dan bertanggung jawab. Pilihan Anda sepenuhnya rahasia dan dilindungi oleh sistem.
             </p>
-            <div class="alert alert-warning d-inline-block py-2 px-3 small rounded-pill border-0 shadow-sm">
+            <div class="alert alert-warning d-inline-block py-2 px-3 small rounded-4 border-0 shadow-sm mb-0">
                 <i class="bi bi-exclamation-triangle-fill me-1"></i> Perhatian: Suara yang telah dikonfirmasi dan dikirim <strong>tidak dapat diubah kembali</strong>.
             </div>
         </div>
@@ -100,19 +102,19 @@ $dashboardUrl = base_url(($currentUser['role'] ?? 'siswa') . '/dashboard.php');
                         "<?= htmlspecialchars(mb_strimwidth($cand['visi'], 0, 140, '...'), ENT_QUOTES, 'UTF-8') ?>"
                     </div>
 
-                    <div class="d-flex gap-2 mt-4 pt-3 border-top">
-                        <button type="button" class="btn btn-outline-secondary w-50 btn-detail-trigger"
+                    <div class="d-flex flex-column flex-sm-row gap-2 mt-4 pt-3 border-top">
+                        <button type="button" class="btn btn-outline-secondary flex-fill py-2 btn-detail-trigger"
                                 data-id="<?= $cand['id'] ?>"
                                 data-nomor="<?= sprintf('%02d', $cand['nomor_urut']) ?>"
                                 data-names="<?= htmlspecialchars($cand['nama_ketua'] . ' & ' . $cand['nama_wakil'], ENT_QUOTES, 'UTF-8') ?>"
                                 data-visi="<?= htmlspecialchars($cand['visi'], ENT_QUOTES, 'UTF-8') ?>"
                                 data-misi="<?= htmlspecialchars($cand['misi'], ENT_QUOTES, 'UTF-8') ?>"
                                 data-proker="<?= htmlspecialchars($cand['program_kerja'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
-                            <i class="bi bi-info-circle me-1"></i> Visi Misi
+                            <i class="bi bi-info-circle me-1"></i> Visi &amp; Misi
                         </button>
 
                         <button type="button"
-                                class="btn btn-gold-custom w-50 fw-bold btn-vote-trigger"
+                                class="btn btn-gold-custom flex-fill py-2 fw-bold btn-vote-trigger"
                                 data-id="<?= $cand['id'] ?>"
                                 data-nomor="<?= sprintf('%02d', $cand['nomor_urut']) ?>"
                                 data-names="<?= htmlspecialchars($cand['nama_ketua'] . ' & ' . $cand['nama_wakil'], ENT_QUOTES, 'UTF-8') ?>"
@@ -137,7 +139,7 @@ $dashboardUrl = base_url(($currentUser['role'] ?? 'siswa') . '/dashboard.php');
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body p-4 text-center">
+            <div class="modal-body p-3 p-sm-4 text-center">
                 <div class="p-3 rounded-circle bg-warning bg-opacity-10 text-warning d-inline-flex mb-3">
                     <i class="bi bi-envelope-paper-heart-fill display-4"></i>
                 </div>
@@ -146,7 +148,7 @@ $dashboardUrl = base_url(($currentUser['role'] ?? 'siswa') . '/dashboard.php');
                     Apakah Anda yakin ingin memilih Pasangan Calon Nomor <span class="text-primary fs-4" id="confirm-candidate-number">01</span>?
                 </h5>
 
-                <div class="p-3 rounded-3 bg-light border my-3 fw-semibold text-dark" id="confirm-candidate-names">
+                <div class="p-3 rounded-3 bg-light border my-3 fw-semibold text-dark text-break" id="confirm-candidate-names">
                     Nama Pasangan Calon
                 </div>
 
@@ -161,11 +163,11 @@ $dashboardUrl = base_url(($currentUser['role'] ?? 'siswa') . '/dashboard.php');
                     <input type="hidden" name="candidate_id" id="confirm-candidate-id" value="">
                 </form>
             </div>
-            <div class="modal-footer bg-light border-0 justify-content-center p-3 gap-2">
-                <button type="button" class="btn btn-outline-secondary px-4 fw-semibold" data-bs-dismiss="modal" id="btn-cancel-vote">
+            <div class="modal-footer bg-light border-0 justify-content-center p-3 gap-2 flex-wrap">
+                <button type="button" class="btn btn-outline-secondary px-4 py-2 fw-semibold w-100 w-sm-auto" data-bs-dismiss="modal" id="btn-cancel-vote">
                     <i class="bi bi-x-circle me-1"></i> Batal
                 </button>
-                <button type="button" class="btn btn-primary-custom px-4 fw-bold" id="btn-confirm-vote-submit" onclick="document.getElementById('form-actual-vote').submit();">
+                <button type="button" class="btn btn-primary-custom px-4 py-2 fw-bold w-100 w-sm-auto" id="btn-confirm-vote-submit" onclick="document.getElementById('form-actual-vote').submit();">
                     <i class="bi bi-check2-circle me-1"></i> Ya, Saya Yakin
                 </button>
             </div>

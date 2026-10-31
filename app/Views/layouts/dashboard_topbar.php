@@ -26,27 +26,27 @@ $roleBadgeClass = match($user['role'] ?? '') {
 };
 ?>
 <header class="dashboard-topbar bg-white border-bottom sticky-top py-2 px-2 px-md-3 px-lg-4" id="mainDashboardTopbar">
-    <div class="d-flex align-items-center justify-content-between gap-2">
+    <div class="d-flex align-items-center justify-content-between gap-2 flex-nowrap">
         <!-- Left: Mobile Toggle & Clickable Brand / Portal Title -->
-        <div class="d-flex align-items-center gap-2">
-            <button class="btn btn-outline-secondary btn-sm d-lg-none mobile-nav-toggler" type="button" id="dashboardSidebarToggle" aria-label="Buka Menu Navigasi" onclick="toggleSidebarMobile(event)">
+        <div class="d-flex align-items-center gap-2 min-w-0" style="min-width: 0;">
+            <button class="btn btn-outline-secondary btn-sm d-lg-none mobile-nav-toggler flex-shrink-0" type="button" id="dashboardSidebarToggle" aria-label="Buka Menu Navigasi" onclick="toggleSidebarMobile(event)">
                 <i class="bi bi-list fs-5"></i>
             </button>
 
-            <a href="<?= base_url(($user['role'] ?? 'siswa') . '/dashboard.php') ?>" class="d-flex align-items-center gap-2 text-decoration-none" title="Ke Dashboard Utama">
+            <a href="<?= base_url(($user['role'] ?? 'siswa') . '/dashboard.php') ?>" class="d-flex align-items-center gap-2 text-decoration-none min-w-0" style="min-width: 0;" title="Ke Dashboard Utama">
                 <img src="<?= app_logo() ?>" alt="Logo" width="32" height="32" class="rounded object-fit-contain bg-white border p-0.5 flex-shrink-0">
-                <div class="d-flex flex-column">
-                    <span class="badge <?= $roleBadgeClass ?> text-uppercase fw-bold text-start" style="font-size: 0.7rem; letter-spacing: 0.05em;">
+                <div class="d-flex flex-column min-w-0" style="min-width: 0;">
+                    <span class="badge <?= $roleBadgeClass ?> text-uppercase fw-bold text-start text-truncate" style="font-size: 0.68rem; letter-spacing: 0.04em; max-width: 100%;">
                         <?= $portalLabel ?>
                     </span>
-                    <span class="small text-muted d-none d-sm-inline" style="font-size: 0.68rem; line-height: 1.1;">
+                    <span class="small text-muted d-none d-sm-inline text-truncate" style="font-size: 0.68rem; line-height: 1.1; max-width: 240px;">
                         <?= htmlspecialchars(app_setting('app_title', APP_NAME), ENT_QUOTES, 'UTF-8') ?>
                     </span>
                 </div>
             </a>
 
             <?php if ($activeElection): ?>
-                <span class="d-none d-xl-inline-flex align-items-center gap-1 badge bg-light text-secondary border small ms-1">
+                <span class="d-none d-xl-inline-flex align-items-center gap-1 badge bg-light text-secondary border small ms-1 flex-shrink-0">
                     <span class="live-pulse me-1" style="width: 7px; height: 7px;"></span>
                     <?= htmlspecialchars($activeElection['tahun'], ENT_QUOTES, 'UTF-8') ?> &bull; <?= strtoupper($activeElection['computed_status']) ?>
                 </span>
@@ -54,7 +54,7 @@ $roleBadgeClass = match($user['role'] ?? '') {
         </div>
 
         <!-- Right: Actions & User Dropdown -->
-        <div class="d-flex align-items-center gap-2">
+        <div class="d-flex align-items-center gap-1 gap-sm-2 flex-shrink-0">
             <!-- View Public Site Button -->
             <a href="<?= base_url('index.php') ?>" class="btn btn-outline-secondary btn-sm d-none d-md-inline-flex align-items-center gap-1" title="Lihat Halaman Utama Publik" target="_blank">
                 <i class="bi bi-box-arrow-up-right"></i>
@@ -66,12 +66,13 @@ $roleBadgeClass = match($user['role'] ?? '') {
                     <a href="<?= base_url(($user['role'] ?? 'siswa') . '/status.php') ?>" class="btn btn-outline-success btn-sm fw-bold px-2 px-md-3 d-inline-flex align-items-center gap-1" title="Lihat Bukti &amp; Sertifikat Pemilihan">
                         <i class="bi bi-patch-check-fill text-success"></i>
                         <span class="small d-none d-sm-inline">Sudah Memilih</span>
-                        <span class="small d-sm-none">Status</span>
+                        <span class="small d-sm-none" style="font-size: 0.72rem;">Status</span>
                     </a>
                 <?php else: ?>
                     <a href="<?= base_url('voting.php') ?>" class="btn btn-gold-custom btn-sm fw-bold px-2 px-md-3 d-inline-flex align-items-center gap-1 shadow-sm" title="Masuk ke Bilik Suara Elektronik">
                         <i class="bi bi-check2-square"></i>
-                        <span class="small">Bilik Suara</span>
+                        <span class="small d-none d-sm-inline">Bilik Suara</span>
+                        <span class="small d-sm-none" style="font-size: 0.72rem;">Voting</span>
                     </a>
                 <?php endif; ?>
             <?php endif; ?>

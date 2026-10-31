@@ -68,17 +68,17 @@ require_once BASE_PATH . '/app/Views/layouts/header.php';
 
         <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
             <div>
-                <h3 class="fw-bold text-dark mb-1">Daftar Pasangan Calon OSIS</h3>
+                <h3 class="fw-bold text-dark mb-1" style="font-size: clamp(1.25rem, 4vw, 1.65rem);">Daftar Pasangan Calon OSIS</h3>
                 <p class="text-muted small mb-0">Kenali gagasan, visi misi, dan program kerja unggulan calon ketua &amp; wakil ketua OSIS.</p>
             </div>
             <?php if (!$hasVoted): ?>
-                <a href="<?= base_url('voting.php') ?>" class="btn btn-warning text-dark fw-bold btn-sm px-3 shadow-sm">
+                <a href="<?= base_url('voting.php') ?>" class="btn btn-warning text-dark fw-bold btn-sm px-3 py-2 shadow-sm w-100 w-sm-auto">
                     <i class="bi bi-check2-square me-1"></i> Buka Bilik Suara
                 </a>
             <?php endif; ?>
         </div>
 
-        <div class="row g-4">
+        <div class="row g-3 g-md-4">
             <?php foreach ($candidates as $cand): 
                 $photoPasangan = !empty($cand['foto_pasangan']) ? asset('uploads/candidates/' . $cand['foto_pasangan']) : null;
                 $photoKetua = !empty($cand['foto_ketua']) ? asset('uploads/candidates/' . $cand['foto_ketua']) : asset('assets/images/default-avatar.svg');
@@ -87,26 +87,26 @@ require_once BASE_PATH . '/app/Views/layouts/header.php';
             <div class="col-12">
                 <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-3">
                     <div class="card-header bg-dark text-white p-3 d-flex flex-wrap justify-content-between align-items-center gap-2">
-                        <div class="d-flex align-items-center gap-2">
-                            <span class="badge bg-warning text-dark fs-6 fw-bold px-3 py-2 rounded-pill">
+                        <div class="d-flex flex-wrap align-items-center gap-2">
+                            <span class="badge bg-warning text-dark fw-bold px-3 py-2 rounded-pill flex-shrink-0" style="font-size: 0.85rem;">
                                 NO. URUT <?= sprintf('%02d', $cand['nomor_urut']) ?>
                             </span>
-                            <h5 class="mb-0 fw-bold text-white ms-1">
+                            <h5 class="mb-0 fw-bold text-white" style="font-size: clamp(1rem, 3vw, 1.2rem);">
                                 <?= htmlspecialchars($cand['nama_ketua'], ENT_QUOTES, 'UTF-8') ?> &amp; <?= htmlspecialchars($cand['nama_wakil'], ENT_QUOTES, 'UTF-8') ?>
                             </h5>
                         </div>
                         <?php if (!$hasVoted): ?>
-                            <a href="<?= base_url('voting.php') ?>" class="btn btn-sm btn-gold-custom fw-bold px-3">
+                            <a href="<?= base_url('voting.php') ?>" class="btn btn-sm btn-gold-custom fw-bold px-3 py-2 w-100 w-sm-auto">
                                 <i class="bi bi-check2-circle me-1"></i> Pilih Paslon Ini
                             </a>
                         <?php endif; ?>
                     </div>
 
                     <div class="card-body p-3 p-md-4">
-                        <div class="row g-4">
+                        <div class="row g-3 g-md-4">
                             <!-- Photos -->
                             <div class="col-lg-4 col-md-5">
-                                <div class="candidate-photo-wrapper rounded-3 shadow-sm overflow-hidden" style="min-height: 220px; max-height: 290px;">
+                                <div class="candidate-photo-wrapper rounded-3 shadow-sm overflow-hidden" style="height: 240px;">
                                     <?php if ($photoPasangan): ?>
                                         <img src="<?= $photoPasangan ?>" alt="Paslon" onerror="this.src='<?= asset('assets/images/default-avatar.svg') ?>'" style="object-position: top center; object-fit: cover; width: 100%; height: 100%;">
                                     <?php else: ?>
@@ -124,9 +124,15 @@ require_once BASE_PATH . '/app/Views/layouts/header.php';
                                 </div>
 
                                 <div class="p-3 bg-light rounded-3 border mt-3 text-center">
-                                    <div class="fw-bold text-dark small"><?= htmlspecialchars($cand['nama_ketua'], ENT_QUOTES, 'UTF-8') ?> <span class="badge bg-white border text-dark ms-1"><?= htmlspecialchars($cand['kelas_ketua'], ENT_QUOTES, 'UTF-8') ?></span></div>
+                                    <div class="fw-bold text-dark small d-flex flex-wrap justify-content-center align-items-center gap-1">
+                                        <span><?= htmlspecialchars($cand['nama_ketua'], ENT_QUOTES, 'UTF-8') ?></span>
+                                        <span class="badge bg-white border text-dark"><?= htmlspecialchars($cand['kelas_ketua'], ENT_QUOTES, 'UTF-8') ?></span>
+                                    </div>
                                     <small class="text-muted d-block my-1">&amp;</small>
-                                    <div class="fw-bold text-dark small"><?= htmlspecialchars($cand['nama_wakil'], ENT_QUOTES, 'UTF-8') ?> <span class="badge bg-white border text-dark ms-1"><?= htmlspecialchars($cand['kelas_wakil'], ENT_QUOTES, 'UTF-8') ?></span></div>
+                                    <div class="fw-bold text-dark small d-flex flex-wrap justify-content-center align-items-center gap-1">
+                                        <span><?= htmlspecialchars($cand['nama_wakil'], ENT_QUOTES, 'UTF-8') ?></span>
+                                        <span class="badge bg-white border text-dark"><?= htmlspecialchars($cand['kelas_wakil'], ENT_QUOTES, 'UTF-8') ?></span>
+                                    </div>
                                 </div>
                             </div>
 

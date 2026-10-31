@@ -47,16 +47,23 @@ require_once BASE_PATH . '/app/Views/layouts/header.php';
         <main class="dashboard-content" id="main-content">
         <?php require_once BASE_PATH . '/app/Views/layouts/alerts.php'; ?>
 
-        <div class="mb-4">
-            <h3 class="fw-bold text-dark mb-1">Pengaturan Akun Siswa</h3>
-            <p class="text-muted small mb-0">Kelola informasi identitas pemilih dan keamanan akun Anda.</p>
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+            <div>
+                <h3 class="fw-bold text-dark mb-1" style="font-size: clamp(1.25rem, 4vw, 1.65rem);">Pengaturan Akun Siswa</h3>
+                <p class="text-muted small mb-0">Kelola informasi identitas pemilih dan keamanan akun Anda.</p>
+            </div>
+            <a href="<?= base_url('siswa/dashboard.php') ?>" class="btn btn-outline-secondary btn-sm px-3 py-2 rounded-pill shadow-xs w-100 w-sm-auto">
+                <i class="bi bi-arrow-left me-1"></i> Kembali ke Dashboard
+            </a>
         </div>
 
-        <div class="row g-4">
+        <div class="row g-3 g-md-4">
             <div class="col-lg-5">
-                <div class="card border-0 shadow-sm rounded-4 text-center p-4">
-                    <div class="position-relative d-inline-block mx-auto mb-3">
-                        <div class="avatar-circle-lg bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center mx-auto" style="width: 80px; height: 80px; font-size: 2.2rem;">
+                <div class="card border-0 shadow-sm rounded-4 text-center p-3 p-sm-4 h-100 position-relative overflow-hidden">
+                    <div class="position-absolute top-0 start-0 end-0 bg-primary bg-opacity-10" style="height: 6px;"></div>
+
+                    <div class="position-relative d-inline-block mx-auto mb-3 mt-2">
+                        <div class="avatar-circle-lg bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center mx-auto shadow-xs" style="width: 80px; height: 80px; font-size: 2.2rem;">
                             <i class="bi bi-mortarboard-fill"></i>
                         </div>
                         <span class="position-absolute bottom-0 end-0 badge rounded-pill bg-success border border-white p-1">
@@ -64,38 +71,38 @@ require_once BASE_PATH . '/app/Views/layouts/header.php';
                         </span>
                     </div>
 
-                    <h5 class="fw-bold text-dark mb-1"><?= htmlspecialchars($fullProfile['nama_lengkap'], ENT_QUOTES, 'UTF-8') ?></h5>
-                    <p class="text-muted small mb-2">NISN: <span class="fw-semibold text-dark"><?= htmlspecialchars($fullProfile['username'], ENT_QUOTES, 'UTF-8') ?></span></p>
+                    <h5 class="fw-bold text-dark mb-1 text-break"><?= htmlspecialchars($fullProfile['nama_lengkap'], ENT_QUOTES, 'UTF-8') ?></h5>
+                    <p class="text-muted small mb-2">NISN: <span class="fw-semibold text-dark font-monospace"><?= htmlspecialchars($fullProfile['username'], ENT_QUOTES, 'UTF-8') ?></span></p>
                     
                     <div class="mb-3">
-                        <span class="badge bg-success-subtle text-success fw-bold px-3 py-2 rounded-pill">
+                        <span class="badge bg-success-subtle text-success border border-success border-opacity-25 fw-bold px-3 py-2 rounded-pill">
                             <i class="bi bi-patch-check-fill me-1"></i> Akun Pemilih Terverifikasi
                         </span>
                     </div>
 
                     <div class="p-3 bg-light rounded-4 border text-start small">
-                        <div class="d-flex justify-content-between py-1 border-bottom">
-                            <span class="text-muted">Kelas:</span>
-                            <strong class="text-dark"><?= htmlspecialchars($fullProfile['kelas'] ?? '-', ENT_QUOTES, 'UTF-8') ?></strong>
+                        <div class="voter-detail-row py-2 border-bottom">
+                            <span class="text-muted detail-label"><i class="bi bi-door-open me-1 text-primary"></i> Kelas:</span>
+                            <strong class="text-dark detail-value"><?= htmlspecialchars($fullProfile['kelas'] ?? '-', ENT_QUOTES, 'UTF-8') ?></strong>
                         </div>
-                        <div class="d-flex justify-content-between py-1 border-bottom">
-                            <span class="text-muted">Jurusan:</span>
-                            <strong class="text-dark"><?= htmlspecialchars($fullProfile['jurusan'] ?? '-', ENT_QUOTES, 'UTF-8') ?></strong>
+                        <div class="voter-detail-row py-2 border-bottom">
+                            <span class="text-muted detail-label"><i class="bi bi-mortarboard me-1 text-info"></i> Jurusan:</span>
+                            <strong class="text-dark detail-value"><?= htmlspecialchars($fullProfile['jurusan'] ?? '-', ENT_QUOTES, 'UTF-8') ?></strong>
                         </div>
-                        <div class="d-flex justify-content-between py-1 border-bottom">
-                            <span class="text-muted">Email:</span>
-                            <span class="text-dark text-truncate" style="max-width: 170px;"><?= htmlspecialchars($fullProfile['email'] ?: 'Belum diisi', ENT_QUOTES, 'UTF-8') ?></span>
+                        <div class="voter-detail-row py-2 border-bottom">
+                            <span class="text-muted detail-label"><i class="bi bi-envelope me-1 text-secondary"></i> Email:</span>
+                            <span class="text-dark detail-value"><?= htmlspecialchars($fullProfile['email'] ?: 'Belum diisi', ENT_QUOTES, 'UTF-8') ?></span>
                         </div>
-                        <div class="d-flex justify-content-between py-1">
-                            <span class="text-muted">Terdaftar:</span>
-                            <span class="text-dark"><?= date('d M Y', strtotime($fullProfile['created_at'])) ?></span>
+                        <div class="voter-detail-row py-2">
+                            <span class="text-muted detail-label"><i class="bi bi-calendar-check me-1 text-success"></i> Terdaftar:</span>
+                            <span class="text-dark detail-value"><?= date('d M Y', strtotime($fullProfile['created_at'])) ?></span>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="col-lg-7">
-                <div class="card border-0 shadow-sm rounded-4 p-4">
+                <div class="card border-0 shadow-sm rounded-4 p-3 p-sm-4 h-100">
                     <h5 class="fw-bold text-dark mb-2"><i class="bi bi-shield-lock-fill me-2 text-primary"></i> Ganti Password Akun</h5>
                     <p class="text-muted small mb-4">Gunakan password yang aman dan mudah Anda ingat untuk login ke bilik suara.</p>
 
@@ -137,9 +144,14 @@ require_once BASE_PATH . '/app/Views/layouts/header.php';
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary-custom px-4 py-2 fw-bold w-100 w-sm-auto shadow-sm">
-                            <i class="bi bi-check2-circle me-1"></i> Perbarui Password
-                        </button>
+                        <div class="d-flex flex-wrap gap-2">
+                            <button type="submit" class="btn btn-primary-custom px-4 py-2 fw-bold w-100 w-sm-auto shadow-sm">
+                                <i class="bi bi-check2-circle me-1"></i> Perbarui Password
+                            </button>
+                            <a href="<?= base_url('siswa/dashboard.php') ?>" class="btn btn-light border px-4 py-2 fw-semibold w-100 w-sm-auto">
+                                Batal
+                            </a>
+                        </div>
                     </form>
                 </div>
             </div>

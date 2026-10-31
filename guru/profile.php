@@ -59,18 +59,18 @@ require_once BASE_PATH . '/app/Views/layouts/header.php';
 
         <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
             <div>
-                <h3 class="fw-bold text-dark mb-1">Pengaturan Profil &amp; Keamanan Akun</h3>
+                <h3 class="fw-bold text-dark mb-1" style="font-size: clamp(1.25rem, 4vw, 1.65rem);">Pengaturan Profil &amp; Keamanan Akun</h3>
                 <p class="text-muted small mb-0">Informasi identitas Dewan Guru dan pembaruan kata sandi akun.</p>
             </div>
-            <a href="<?= base_url('guru/dashboard.php') ?>" class="btn btn-outline-secondary btn-sm px-3 rounded-pill shadow-xs">
+            <a href="<?= base_url('guru/dashboard.php') ?>" class="btn btn-outline-secondary btn-sm px-3 py-2 rounded-pill shadow-xs w-100 w-sm-auto">
                 <i class="bi bi-arrow-left me-1"></i> Kembali ke Dashboard
             </a>
         </div>
 
-        <div class="row g-4">
+        <div class="row g-3 g-md-4">
             <!-- Kartu Identitas Dewan Guru -->
             <div class="col-lg-5">
-                <div class="card border-0 shadow-sm rounded-4 text-center p-4 h-100 position-relative overflow-hidden">
+                <div class="card border-0 shadow-sm rounded-4 text-center p-3 p-sm-4 h-100 position-relative overflow-hidden">
                     <div class="position-absolute top-0 start-0 end-0 bg-success bg-opacity-10" style="height: 6px;"></div>
 
                     <div class="position-relative d-inline-block mx-auto mb-3 mt-2">
@@ -82,8 +82,8 @@ require_once BASE_PATH . '/app/Views/layouts/header.php';
                         </span>
                     </div>
 
-                    <h5 class="fw-bold text-dark mb-1"><?= htmlspecialchars($fullProfile['nama_lengkap'], ENT_QUOTES, 'UTF-8') ?></h5>
-                    <p class="text-muted small mb-2">NIP / ID: <span class="fw-semibold text-dark"><?= htmlspecialchars($fullProfile['employee_identifier'] ?? $fullProfile['username'], ENT_QUOTES, 'UTF-8') ?></span></p>
+                    <h5 class="fw-bold text-dark mb-1 text-break"><?= htmlspecialchars($fullProfile['nama_lengkap'], ENT_QUOTES, 'UTF-8') ?></h5>
+                    <p class="text-muted small mb-2">NIP / ID: <span class="fw-semibold text-dark font-monospace"><?= htmlspecialchars($fullProfile['employee_identifier'] ?? $fullProfile['username'], ENT_QUOTES, 'UTF-8') ?></span></p>
                     
                     <div class="mb-4">
                         <span class="badge bg-success-subtle text-success border border-success border-opacity-25 fw-bold px-3 py-2 rounded-pill">
@@ -92,29 +92,31 @@ require_once BASE_PATH . '/app/Views/layouts/header.php';
                     </div>
 
                     <div class="p-3 bg-light rounded-4 border text-start small mb-3">
-                        <div class="d-flex justify-content-between py-2 border-bottom">
-                            <span class="text-muted"><i class="bi bi-book me-1 text-primary"></i> Mata Pelajaran:</span>
-                            <strong class="text-dark"><?= htmlspecialchars($fullProfile['mata_pelajaran'] ?? 'Dewan Guru', ENT_QUOTES, 'UTF-8') ?></strong>
+                        <div class="voter-detail-row py-2 border-bottom">
+                            <span class="text-muted detail-label"><i class="bi bi-book me-1 text-primary"></i> Mata Pelajaran:</span>
+                            <strong class="text-dark detail-value"><?= htmlspecialchars($fullProfile['mata_pelajaran'] ?? 'Dewan Guru', ENT_QUOTES, 'UTF-8') ?></strong>
                         </div>
-                        <div class="d-flex justify-content-between py-2 border-bottom">
-                            <span class="text-muted"><i class="bi bi-shield-check me-1 text-info"></i> Hak Suara:</span>
-                            <?php if ($teacherCanVote): ?>
-                                <?php if ($hasVoted): ?>
-                                    <span class="badge bg-success text-white">Suara Telah Digunakan</span>
+                        <div class="voter-detail-row py-2 border-bottom">
+                            <span class="text-muted detail-label"><i class="bi bi-shield-check me-1 text-info"></i> Hak Suara:</span>
+                            <span class="detail-value">
+                                <?php if ($teacherCanVote): ?>
+                                    <?php if ($hasVoted): ?>
+                                        <span class="badge bg-success text-white">Suara Telah Digunakan</span>
+                                    <?php else: ?>
+                                        <span class="badge bg-warning text-dark">Hak Pilih Tersedia</span>
+                                    <?php endif; ?>
                                 <?php else: ?>
-                                    <span class="badge bg-warning text-dark">Hak Pilih Tersedia</span>
+                                    <span class="badge bg-secondary text-white">Pengamat Resmi</span>
                                 <?php endif; ?>
-                            <?php else: ?>
-                                <span class="badge bg-secondary text-white">Pengamat Resmi</span>
-                            <?php endif; ?>
+                            </span>
                         </div>
-                        <div class="d-flex justify-content-between py-2 border-bottom">
-                            <span class="text-muted"><i class="bi bi-envelope me-1 text-secondary"></i> Email:</span>
-                            <span class="text-dark text-truncate" style="max-width: 170px;"><?= htmlspecialchars($fullProfile['email'] ?: 'Belum diisi', ENT_QUOTES, 'UTF-8') ?></span>
+                        <div class="voter-detail-row py-2 border-bottom">
+                            <span class="text-muted detail-label"><i class="bi bi-envelope me-1 text-secondary"></i> Email:</span>
+                            <span class="text-dark detail-value"><?= htmlspecialchars($fullProfile['email'] ?: 'Belum diisi', ENT_QUOTES, 'UTF-8') ?></span>
                         </div>
-                        <div class="d-flex justify-content-between py-2">
-                            <span class="text-muted"><i class="bi bi-calendar-check me-1 text-success"></i> Terdaftar Sejak:</span>
-                            <span class="text-dark"><?= date('d M Y', strtotime($fullProfile['created_at'])) ?></span>
+                        <div class="voter-detail-row py-2">
+                            <span class="text-muted detail-label"><i class="bi bi-calendar-check me-1 text-success"></i> Terdaftar Sejak:</span>
+                            <span class="text-dark detail-value"><?= date('d M Y', strtotime($fullProfile['created_at'])) ?></span>
                         </div>
                     </div>
 
@@ -131,7 +133,7 @@ require_once BASE_PATH . '/app/Views/layouts/header.php';
 
             <!-- Form Ganti Password Akun -->
             <div class="col-lg-7">
-                <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+                <div class="card border-0 shadow-sm rounded-4 p-3 p-sm-4 h-100">
                     <h5 class="fw-bold text-dark mb-2"><i class="bi bi-shield-lock-fill me-2 text-primary"></i> Ganti Password Akun</h5>
                     <p class="text-muted small mb-4">Gunakan password yang aman dan mudah Anda ingat untuk akses bilik suara atau pemantauan pemilu dari perangkat HP Anda.</p>
 
